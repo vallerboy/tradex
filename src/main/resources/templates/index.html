@@ -22,6 +22,7 @@
         }
 
         function callToServer(typedText) {
+            console.log(typedText);
             $.ajax({
                 url: "/api/currency/" + typedText,
                 type: "get", //send it through get method
@@ -29,7 +30,7 @@
                         alert(response)
                 },
                 error: function(xhr) {
-                    alert(xhr)
+                        alert(xhr)
                 }
             });
         }
@@ -39,8 +40,11 @@
     <canvas id="currencyChart" width="200px" height="50px"></canvas>
 
     <div style="text-align: center;">
-        <input onkeydown="keyPressOne()"  id="currency1" placeholder="Podaj walutę">
-        <input onkeydown="keyPressTwo()"  id="currency2" placeholder="Podaj walutę">
+        <input onkeyup="keyPressOne()"  id="currency1" list="hints1" placeholder="Podaj walutę">
+        <datalist id="hints1">
+        </datalist>
+
+        <input onkeyup="keyPressTwo()"  id="currency2" placeholder="Podaj walutę">
         <button onclick="sendData()">Slij</button>
     </div>
 
