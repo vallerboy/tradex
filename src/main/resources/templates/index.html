@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.springframework.org/schema/mvc">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+    <script>
+        function sendData() {
+            var curr1 = document.getElementById("currency1").value;
+            var curr2 = document.getElementById("currency2").value;
+
+            window.location.href = "/" + curr1 + "/" + curr2;
+        }
+    </script>
+</head>
+<body>
+    <canvas id="currencyChart" width="200px" height="50px"></canvas>
+
+    <div style="text-align: center;">
+        <input type="text" id="currency1" placeholder="Podaj walutę">
+        <input type="text" id="currency2" placeholder="Podaj walutę">
+        <button onclick="sendData()">Slij</button>
+    </div>
+
+
+    <script th:inline="javascript">
+
+    var ctx = document.getElementById("currencyChart").getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: [[${labels}]],
+            datasets: [{
+                label: [[${currencyNameOne}]],
+                data: [[${dataOne}]],
+                 backgroundColor: "rgba(255, 99, 132, 0.2)"
+            }, {
+                label: [[${currencyNameTwo}]],
+                data: [[${dataTwo}]],
+                 backgroundColor: "rgba(75, 192, 192, 0.2)"
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:false
+                    }
+                }]
+            }
+        }
+    });
+
+
+    </script>
+</body>
+</html>
