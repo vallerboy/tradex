@@ -1,0 +1,16 @@
+package pl.oskarpolak.tradex.models.services;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Service;
+import sun.jvm.hotspot.oops.Array;
+
+import java.util.Arrays;
+import java.util.List;
+
+@Service
+public class CurrentService {
+    @Bean
+    public List<String> getActualCurrencies(){
+         return Arrays.asList ("EUR", "USD", "CHF", "GBP", "AUD", "HKD");
+    }
+}
