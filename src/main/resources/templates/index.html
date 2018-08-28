@@ -27,7 +27,12 @@
                 url: "/api/currency/" + typedText,
                 type: "get", //send it through get method
                 success: function(response) {
-                        alert(response)
+                        var list = document.getElementById('hints1');
+                        response.forEach(function (oneElement) {
+                            var option = document.createElement('option');
+                            option.value = oneElement;
+                            list.appendChild(option);
+                        })
                 },
                 error: function(xhr) {
                         alert(xhr)
@@ -41,8 +46,7 @@
 
     <div style="text-align: center;">
         <input onkeyup="keyPressOne()"  id="currency1" list="hints1" placeholder="Podaj walutę">
-        <datalist id="hints1">
-        </datalist>
+        <datalist id="hints1"></datalist>
 
         <input onkeyup="keyPressTwo()"  id="currency2" placeholder="Podaj walutę">
         <button onclick="sendData()">Slij</button>
