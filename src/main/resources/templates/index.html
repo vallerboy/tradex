@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script>
         function sendData() {
             var curr1 = document.getElementById("currency1").value;
@@ -11,14 +12,35 @@
 
             window.location.href = "/" + curr1 + "/" + curr2;
         }
+        
+        function keyPressOne() {
+            var curr1 = document.getElementById("currency1").value;
+            callToServer(curr1);
+        }
+        function keyPressTwo() {
+
+        }
+
+        function callToServer(typedText) {
+            $.ajax({
+                url: "/api/currency/" + typedText,
+                type: "get", //send it through get method
+                success: function(response) {
+                        alert(response)
+                },
+                error: function(xhr) {
+                    alert(xhr)
+                }
+            });
+        }
     </script>
 </head>
 <body>
     <canvas id="currencyChart" width="200px" height="50px"></canvas>
 
     <div style="text-align: center;">
-        <input type="text" id="currency1" placeholder="Podaj walutę">
-        <input type="text" id="currency2" placeholder="Podaj walutę">
+        <input onkeydown="keyPressOne()"  id="currency1" placeholder="Podaj walutę">
+        <input onkeydown="keyPressTwo()"  id="currency2" placeholder="Podaj walutę">
         <button onclick="sendData()">Slij</button>
     </div>
 
