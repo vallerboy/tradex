@@ -13,13 +13,11 @@
             window.location.href = "/" + curr1 + "/" + curr2;
         }
         
-        function keyPressOne() {
-            var curr1 = document.getElementById("currency1").value;
-            callToServer(curr1);
+        function onInputEdited(number) {
+            var curr = document.getElementById("currency" + number).value;
+            callToServer(curr);
         }
-        function keyPressTwo() {
 
-        }
 
         function callToServer(typedText) {
             console.log(typedText);
@@ -46,10 +44,11 @@
     <canvas id="currencyChart" width="200px" height="50px"></canvas>
 
     <div style="text-align: center;">
-        <input onkeyup="keyPressOne()"  id="currency1" list="hints1" placeholder="Podaj walutę">
+        <input oninput="onInputEdited(1)"  id="currency1" list="hints1" placeholder="Podaj walutę">
+        <input oninput="onInputEdited(2)"  id="currency2" list="hints1" placeholder="Podaj walutę">
         <datalist id="hints1"></datalist>
 
-        <input onkeyup="keyPressTwo()"  id="currency2" placeholder="Podaj walutę">
+
         <button onclick="sendData()">Slij</button>
     </div>
 

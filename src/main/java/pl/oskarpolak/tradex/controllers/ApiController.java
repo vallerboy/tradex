@@ -14,8 +14,12 @@ import java.util.stream.Collectors;
 @RestController
 public class ApiController {
 
+    final CurrentService currentService;
+
     @Autowired
-    CurrentService currentService;
+    public ApiController(CurrentService currentService) {
+        this.currentService = currentService;
+    }
 
     @GetMapping("/api/currency/{typed}")
     public ResponseEntity getCurrency(@PathVariable("typed") String typed){
