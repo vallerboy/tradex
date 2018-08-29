@@ -40,9 +40,15 @@ public class MainController {
         model.addAttribute("dataOne", currencyModel.getBody().getRates().stream().map(s -> s.getBid()).collect(Collectors.toList()));
 
 
-        CurrencyModel currencyModel2 = getRestTemplate().getForObject("http://api.nbp.pl/api/exchangerates/rates/a/" + currencyTwo + "/last/10/?format=json", CurrencyModel.class);
-        model.addAttribute("currencyNameTwo", currencyModel2.getCurrencyName());
-        model.addAttribute("dataTwo", currencyModel2.getRates().stream().map(s -> s.getBid()).collect(Collectors.toList()));
+        ResponseEntity<CurrencyModel> currencyModel2;
+        try {
+            currencyModel2 = getRestTemplate().getForEntity("http://api.nbp.pl/api/exchangerates/rates/a/" + currencyTwo + "/last/10/?format=json", CurrencyModel.class);
+        }catch (IllegalStateException e){
+            return "redirect:/";
+        }
+
+        model.addAttribute("currencyNameTwo", currencyModel2.getBody().getCurrencyName());
+        model.addAttribute("dataTwo", currencyModel2.getBody().getRates().stream().map(s -> s.getBid()).collect(Collectors.toList()));
 
 
         return "index";
