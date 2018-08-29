@@ -6,11 +6,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.DefaultResponseErrorHandler;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.NoHandlerFoundException;
 import pl.oskarpolak.tradex.models.CurrencyModel;
 import pl.oskarpolak.tradex.models.HttpErrorHandler;
 
@@ -58,5 +57,13 @@ public class MainController {
     public RestTemplate getRestTemplate(){
         return new RestTemplateBuilder().errorHandler(new HttpErrorHandler()).build();
     }
+
+
+    @GetMapping("/*")
+    @ResponseBody
+    public String error404() {
+        return "blad nie znaleziono!";
+    }
+
 
 }
